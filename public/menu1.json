@@ -1,0 +1,50 @@
+{
+	"code": 200,
+	"data": [
+		{
+			"icon": "home-filled",
+			"title": "首页",
+			"path": "/home"
+		},
+		{
+			"icon": "histogram",
+			"title": "数据展示",
+			"path": "/dataShow",
+			"children": [
+				{
+					"path": "/dataShow/echartsUse",
+					"title": "Echarts使用",
+					"icon": "menu"
+				},
+				{
+					"path": "/dataShow/threeJsShow",
+					"title": "threeJS使用",
+					"icon": "menu"
+				},
+				{
+					"path": "/dataShow/tableUse",
+					"title": "表格使用以及封装",
+					"icon": "menu"
+				}
+			]
+		},
+		{
+			"icon": "message-box",
+			"title": "组件管理",
+			"path": "/comp",
+			"children": [
+				{
+					"path": "/comp/puzzle",
+					"title": "拼图验证",
+					"icon": "menu"
+				},
+				{
+					"path": "/comp/upload",
+					"title": "图片上传",
+					"icon": "menu"
+				}
+			]
+		}
+	],
+	"msg": "成功"
+}

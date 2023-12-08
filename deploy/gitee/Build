@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    environment{
+            gitUrl = "https://gitee.com/luguangdong/lucifer-cloud-dashboard.git"
+            gitCredentialsId = "695eef5c-1a0b-4338-b2d3-4ec08ea1f2b8"
+            publisher_hostName = "lucifer-cloud-aliyun"
+            node_home = "/data/node/node-v20.10.0";
+     }
+
+    // hidden 标签jenkins需要安装 Hidden Parameter 插件
+    parameters {
+          choice choices: ['*/master', '*/dev'], description: '选择的branch', name: 'branch'
+          hidden name: 'publisher_remoteDirectory', defaultValue: '/data/deploy/lucifer-cloud/page/', description:'ssh远程文件夹'
+          hidden name: 'publisher_sourceFiles', defaultValue: 'dashboard.tar.gz', description:'ssh远程构建文件'
+       }
+
+
+    // 存放所有任务的合集
+    stages {
+        // 拉取Git代码
+        stage('checkout code from gitlab...') {
+            steps {
+                checkout scmGit(branches: [[name: "${branch}"]], extensions: [], userRemoteConfigs: [[credentialsId: "${gitCredentialsId}", url: "${gitUrl}"]])
+            }
+        }
+
+        // 检测代码质量
+        stage('code quality...') {
+            steps {
+                echo '检测代码质量'
+            }
+        }
+
+        // 构建代码
+        stage('npm build code...') {
+            steps {
+                sh '${node_home}/bin/npm install --registry=https://registry.npm.taobao.org'
+                sh '${node_home}/bin/npm run build-only:prod'
+                sh 'cd dist'
+                sh 'rm -rf ${publisher_sourceFiles}'
+                sh 'tar -zcvf ${publisher_sourceFiles} *'
+            }
+
+        }
+
+         // 将jar文件传到服务器上
+         stage('transfer  file to remoteDirectory...') {
+             steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: "${publisher_hostName}", transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                execCommand: '''
+                cd ${publisher_remoteDirectory}
+                tar -zxvf ${publisher_sourceFiles}
+                ''',
+                execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "${publisher_remoteDirectory}", remoteDirectorySDF: false, removePrefix: '', sourceFiles: "${publisher_sourceFiles}")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+             }
+         }
+    }
+}

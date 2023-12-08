@@ -1,0 +1,65 @@
+{
+	"code": 200,
+	"data":{
+		"pageNum":1,
+		"pageSize": 10,
+		"total": 12,
+		"list": [
+		{
+			"username": "lucifer",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "原神"
+		},
+		{
+			"username": "luciferao",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "LOL"
+		},
+		{
+			"username": "路西法",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "炉石"
+		},
+		{
+			"username": "lucifer",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "原神"
+		},
+		{
+			"username": "luciferao",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "LOL"
+		},	
+		{
+			"username": "路西法",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "炉石"
+		},
+		{
+			"username": "lucifer",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "原神"
+		},
+		{
+			"username": "luciferao",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "LOL"
+		},	
+		{
+			"username": "路西法",
+			"age": "22",
+            "phone":"15693323897",
+			"hobby": "炉石"
+		}
+	]
+	},
+	"msg": "成功"
+}
