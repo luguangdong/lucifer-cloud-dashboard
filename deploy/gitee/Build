@@ -11,7 +11,7 @@ pipeline {
     // hidden 标签jenkins需要安装 Hidden Parameter 插件
     parameters {
           choice choices: ['*/master', '*/dev'], description: '选择的branch', name: 'branch'
-          hidden name: 'publisher_remoteDirectory', defaultValue: '/data/deploy/lucifer-cloud/page/', description:'ssh远程文件夹'
+          hidden name: 'publisher_remoteDirectory', defaultValue: '/data/deploy/lucifer-cloud/page/dashboard/', description:'ssh远程文件夹'
           hidden name: 'publisher_sourceFiles', defaultValue: 'dashboard.tar.gz', description:'ssh远程构建文件'
        }
 
